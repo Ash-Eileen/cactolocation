@@ -1,6 +1,10 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
+const { authorise } = require('../middleware/authorisation_middleware');
 
+const { dashboard } = require('../controllers/user_controller');
 
-module.exports = router
+router.get('/', authorise, dashboard);
+
+module.exports = router;
