@@ -126,6 +126,28 @@
         'data': {
           'type': 'FeatureCollection',
           'features': [
+            {{#if pins}}
+              {{#each pins }}
+                {
+                  'type': 'Feature',
+                  'properties': {
+                    'description': `
+                      <h3>{{ this.type }}</h3>
+                      <h6>{{ this.health }}</h6>
+                      <hr>
+                      <p>{{ this.description }}</p>
+                      <hr>
+                      <a href="http://localhost:3007/pin/{{this.id}}>Edit</a>
+                      `,
+                    'icon':'park'
+                  },
+                  'geometry' : {
+                    'type': 'Point',
+                    'coordinates': [{{ this.long }}, {{ this.lat }}]
+                  }
+                },
+              {{/each }}
+            {{/if }}
             {
               'type': 'Feature',
               'properties': {
@@ -143,29 +165,7 @@
               'type': 'Point',
               'coordinates': [135.821931323998,-26.01181789972918]
               }
-            },
-            {{#if pins}}
-              {{#each pins }}
-                {
-                  'type': 'Feature',
-                  'properties': {
-                    'description': `
-                      <h3>{{ this.name }}</h3>
-                      <h5>{{ this.health }}</h5>
-                      <hr>
-                      <p>{{ this.description }}</p>
-                      <hr>
-                      <a href="http://localhost:3007/pin/edit?pin_id={{this.id}}">
-                      `,
-                    'icon':'park'
-                  },
-                  'geometry' : {
-                    'type': 'Point',
-                    'coordinates': [{{ this.lat }}, {{ this.long }}]
-                  }
-                },
-              {{/each }}
-            {{/if }}
+            }
           ]
         }
       })

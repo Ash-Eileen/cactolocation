@@ -2,7 +2,9 @@ const express = require('express');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 const mongoose = require('mongoose');
-const exphbs = require('express-handlebars');
+const Handlebars = require('handlebars')
+const expressHandlebars = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const passport = require('passport');
 
 const userRouter = require('./../routes/users_routes');
@@ -48,15 +50,17 @@ mongoose.connect(
   }
 );
 
-app.engine('handlebars', exphbs())
-app.set('view engine', 'handlebars')
+app.engine('handlebars', expressHandlebars({
+  handlebars: allowInsecurePrototypeAccess(Handlebars)
+}));
+app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
 app.use('/', pageRouter);
 app.use('/dashboard', userRouter);
 app.use('/user', authRouter);
 
-const port = process.env.port || 3005;
+const port = process.env.port || 3007;
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
