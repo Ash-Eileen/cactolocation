@@ -58,12 +58,12 @@ const changePin = function (req, res) {
   updatePin(req).exec((err, pin) => {
     if (err) {
       res.status(500);
-      return res.jso({
+      return res.json({
         error: err.message,
       });
     }
     res.status(200);
-    res.sent(pin);
+    res.send(pin);
   });
 };
 

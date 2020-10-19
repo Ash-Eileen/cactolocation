@@ -4,14 +4,8 @@ const Schema = mongoose.Schema;
 const PinSchema = new Schema({
   location: [
     {
-      longitude: {
-        type: Number,
-        required: true,
-      },
-      latitude: {
-        type: Number,
-        required: true,
-      },
+      longitude: Number,
+      latitude: Number,
     },
   ],
   health: {
@@ -37,4 +31,4 @@ const PinSchema = new Schema({
   },
 });
 
-mongoose.model('Pin', PinSchema);
+module.exports = mongoose.model('Pin', PinSchema);
