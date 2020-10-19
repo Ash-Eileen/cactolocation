@@ -18,7 +18,7 @@ const addPin = function (req) {
         lat: req.body.lat,
       },
     ],
-    health: req.body.heath,
+    health: req.body.health,
     type: req.body.type,
     description: req.body.description,
     create_date: date,

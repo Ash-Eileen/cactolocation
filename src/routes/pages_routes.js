@@ -9,7 +9,10 @@ const {
 } = require('../controllers/pins_controller');
 
 router.get('/', getPins);
-
+router.get('/new', (req, res) => {
+  // res.send('STORIES');
+  res.render('new');
+});
 router.get('/pin/:id', getPin);
 
 router.post('/', createPin);
