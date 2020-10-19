@@ -12,12 +12,8 @@ const addPin = function (req) {
   let date = Date.now();
 
   let pin = {
-    coords: [
-      {
-        long: req.body.long,
-        lat: req.body.lat,
-      },
-    ],
+    long: req.body.long,
+    lat: req.body.lat,
     health: req.body.health,
     type: req.body.type,
     description: req.body.description,

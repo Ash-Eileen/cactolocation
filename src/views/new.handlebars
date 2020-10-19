@@ -1,20 +1,33 @@
 <h1>Add Pin</h1>
-<div class="row">
-  <form class="col s12" action="/" method="post">
-    <div class="row">
-      <div class="input-field">
-        <label for="type">Type</label>
-
+<h3>@ {{latLong.lat}} // {{latLong.long}}</h3>
+<div class="">
+  <form class="" action="/" method="post">
+    <div class="">
+      <div class="">
+        <label for="type">Name/Type</label>
         <input type="text" name="type" value="">
       </div>
     </div>
-    <div class="row">
-      <div class="input-field">
-        <h5>Description</h5>
+    <div>
+      <div>
+        <label>Plant Health</label><br>
+        <input type="radio" name="health" id="healthy" value="healthy">
+        <label for="healthy">Healthy</label><br>
+        <input type="radio" name="health" id="careful" value="clip carefully">
+        <label for="careful">Clip carefully</label><br>
+        <input type="radio" name="health" id="alone" value="leave alone for now">
+        <label for="alone">Leave alone for now</label><br>
+      </div>
+    </div>
+    <div class="">
+      <div class="">
+        <label for="description">Description</label>
         <textarea name="description"></textarea>
       </div>
     </div>
-    <input type="submit" class="btn" value="save">
+    <input type="hidden" name="lat" value={{latLong.lat}}>
+    <input type="hidden" name="long" value={{latLong.long}}>
+    <input type="submit" class="" value="save">
   </form>
 
 </div>

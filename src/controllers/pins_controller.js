@@ -15,7 +15,7 @@ const getPins = function (req, res) {
         error: err.message,
       });
     }
-    res.send(pins);
+    res.render("home", {pins, layout: false})
   });
 };
 

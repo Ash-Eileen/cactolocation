@@ -2,12 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PinSchema = new Schema({
-  coords: [
-    {
-      long: Number,
-      lat: Number,
-    },
-  ],
+  
+    
+  long: {
+    type: Number,
+    required: true
+  },
+  lat: {
+    type: Number,
+    required: true
+  },  
   health: {
     type: String,
     enum: ['healthy', 'clip carefully', 'leave alone for now'],
