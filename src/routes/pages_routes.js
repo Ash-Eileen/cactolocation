@@ -10,12 +10,12 @@ const {
 
 router.get('/', getPins);
 
-router.get('/:id', getPin);
+router.get('/pin/:id', getPin);
 
 router.post('/', createPin);
 
-router.delete('/:id', removePin);
+router.delete('/pin/:id', removePin);
 
-router.put('/:id', changePin);
+router.put('/pin/:id', changePin);
 
 module.exports = router;

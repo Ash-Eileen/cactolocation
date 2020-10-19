@@ -3,6 +3,7 @@ const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
+const passport = require('passport');
 
 const userRouter = require('./../routes/users_routes');
 const pageRouter = require('./../routes/pages_routes');
@@ -25,6 +26,10 @@ app.use(
     extended: true,
   })
 );
+
+require('../middleware/passport');
+app.use(passport.initialize());
+app.use(passport.session());
 
 const dbConn = 'mongodb://127.0.0.1:27017/caculocation_db';
 mongoose.connect(

@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PinSchema = new Schema({
-  location: [
+  coords: [
     {
-      longitude: Number,
-      latitude: Number,
+      long: Number,
+      lat: Number,
     },
   ],
   health: {
@@ -28,6 +28,10 @@ const PinSchema = new Schema({
   modified_date: {
     type: Date,
     required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId, // if you use string instead you will get user id but cannot get the functionality like story.user.firstName
+    ref: 'user',
   },
 });
 

@@ -1,7 +1,7 @@
 const Pin = require('../models/pin');
 
 const getAllPins = function (req) {
-  return Pin.find();
+  return Pin.find().populate('user');
 };
 
 const getPinById = function (req) {
