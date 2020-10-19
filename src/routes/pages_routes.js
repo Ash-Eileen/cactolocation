@@ -22,12 +22,12 @@ router.get('/new', authorise, (req, res) => {
   res.render('new',{latLong});
 });
 
-router.get('/pin/:id', getPin);
+router.get('/pin/:id', authorise, getPin);
 
-router.post('/', createPin);
+router.post('/', authorise, createPin);
 
-router.delete('/pin/:id', removePin);
+router.post('/pin/delete/:id', authorise, removePin);
 
-router.put('/pin/:id', changePin);
+router.post('/pin/:id', authorise, changePin);
 
 module.exports = router;
