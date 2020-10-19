@@ -49,7 +49,6 @@ const removePin = function (req, res) {
         error: err.message,
       });
     }
-    console.log("I DID A THING")
     res.redirect("/")
   });
 };
