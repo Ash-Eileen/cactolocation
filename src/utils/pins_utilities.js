@@ -1,7 +1,7 @@
 const Pin = require('../models/pin');
 
 const getAllPins = function (req) {
-  return Pin.find();
+  return Pin.find().populate('user');
 };
 
 const getPinById = function (req) {
@@ -10,10 +10,22 @@ const getPinById = function (req) {
 
 const addPin = function (req) {
   let date = Date.now();
-  req.body.create_date = date;
-  req.body.modified_date = date;
 
-  return new Pin(req.body);
+  let pin = {
+    coords: [
+      {
+        long: req.body.long,
+        lat: req.body.lat,
+      },
+    ],
+    health: req.body.health,
+    type: req.body.type,
+    description: req.body.description,
+    create_date: date,
+    modified_date: date,
+    user: req.user.id,
+  };
+  return new Pin(pin);
 };
 
 const deletePin = function (req) {

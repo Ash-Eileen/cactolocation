@@ -2,16 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PinSchema = new Schema({
-  location: [
+  coords: [
     {
-      longitude: {
-        type: Number,
-        required: true,
-      },
-      latitude: {
-        type: Number,
-        required: true,
-      },
+      long: Number,
+      lat: Number,
     },
   ],
   health: {
@@ -35,6 +29,10 @@ const PinSchema = new Schema({
     type: Date,
     required: true,
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+  },
 });
 
-mongoose.model('Pin', PinSchema);
+module.exports = mongoose.model('Pin', PinSchema);
