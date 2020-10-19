@@ -8,11 +8,20 @@ const {
   changePin,
 } = require('../controllers/pins_controller');
 
+const { 
+  authorise 
+} = require('../middleware/authorisation_middleware');
+
 router.get('/', getPins);
-router.get('/new', (req, res) => {
-  // res.send('STORIES');
-  res.render('new');
+
+router.get('/new', authorise, (req, res) => {
+  let latLong = {
+    lat: req.query.lat,
+    long: req.query.long
+  }
+  res.render('new',{latLong});
 });
+
 router.get('/pin/:id', getPin);
 
 router.post('/', createPin);
