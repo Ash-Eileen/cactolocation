@@ -3,6 +3,7 @@ const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
+const path = require('path');
 
 const userRouter = require('./../routes/users_routes')
 const pageRouter = require('./../routes/pages_routes')
@@ -38,6 +39,7 @@ mongoose.connect(dbConn, {
 
 app.engine('handlebars', exphbs())
 app.set('view engine', 'handlebars')
+app.use(express.static('public'));
 
 app.use('/', pageRouter);
 app.use('/dashboard', userRouter);
