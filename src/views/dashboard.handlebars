@@ -1,5 +1,14 @@
-<h1>Welcome {{ username }}</h1>
+<h1>Welcome {{ user.username }}</h1>
+
+{{#if pins }}
+{{#each pins}}
+<h3>{{ this.type }}</h3>
+<h6>{{ this.health }}</h6>
+<p>{{ this.description }}</p>
+<a href="/pin/{{this.id}}">Edit</a>
+{{/each}}
+{{/if}}
 
 <div>
-  <a href="/user/logout">Logout</a>
+  <a href=" /user/logout">Logout</a>
 </div>

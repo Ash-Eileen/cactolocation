@@ -21,6 +21,7 @@ const addPin = function (req) {
     modified_date: date,
     user: req.user.id,
   };
+
   return new Pin(pin);
 };
 

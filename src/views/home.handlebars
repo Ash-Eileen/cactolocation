@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
@@ -12,42 +13,48 @@
   <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
 
   {{!-- Bootstrap links --}}
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"></script>
 </head>
+
 <body>
 
   {{!-- Geocoder plugin for mapbox --}}
-  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
-  <link
-  rel="stylesheet"
-  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
-  type="text/css"
-  />
+  <script
+    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+    type="text/css" />
   <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
   <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="#">
-      <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top"
+        alt="" loading="lazy">
       CaCuLocation
       {{#if user}}
-      // Hi, {{ user.name }}
+      // Hi, {{ user.username }}
       {{/if}}
     </a>
     <div>
-    {{#if user}}
-      <a class="btn btn-primary" href="http://localhost:3007/user/logout">Log Out</a>
-    {{else}}
-      <a class="btn btn-primary" href="http://localhost:3007/user/login">Log In</a>
-    {{/if}}
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-      ?
-    </button>
+      {{#if user}}
+      <a class="btn btn-primary" href="/user/logout">Log Out</a>
+      {{else}}
+      <a class="btn btn-primary" href="/user/login">Log In</a>
+      {{/if}}
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+        ?
+      </button>
     </div>
-    
+
   </nav>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,28 +86,28 @@
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
       //center on geolocation?
-      center: [135.821931323998,-26.01181789972918], // starting position [lng, lat]
+      center: [135.821931323998, -26.01181789972918], // starting position [lng, lat]
       zoom: 3 // starting zoom
     });
 
     //Adds geocoder search bar to the map
     map.addControl(
       new MapboxGeocoder({
-      accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
       })
     );
-    
-    
+
+
     //Popup of location on click
     let popup = new mapboxgl.Popup()
 
     map.on('click', async (e) => {
       console.log(e)
       var coords = e.lngLat
-      
+
       let address = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${token}`)
-                            .then(resp => resp.json())
+        .then(resp => resp.json())
       console.log(address.features[0].place_name)
 
       popup
@@ -126,32 +133,32 @@
         'data': {
           'type': 'FeatureCollection',
           'features': [
-            {{#if pins}}
+            {{#if pins }}
               {{#each pins }}
                 {
-                  'type': 'Feature',
-                  'properties': {
-                    'description': `
+        'type': 'Feature',
+        'properties': {
+          'description': `
                       <h3>{{ this.type }}</h3>
                       <h6>{{ this.health }}</h6>
                       <hr>
                       <p>{{ this.description }}</p>
                       <hr>
-                      <a href="http://localhost:3007/pin/{{this.id}}>Edit</a>
+                      <a href="http://localhost:3007/pin/{{this.id}}">Edit</a>
                       `,
-                    'icon':'park'
-                  },
-                  'geometry' : {
-                    'type': 'Point',
-                    'coordinates': [{{ this.long }}, {{ this.lat }}]
+          'icon': 'park'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [{{ this.long }}, {{ this.lat }}]
                   }
                 },
-              {{/each }}
-            {{/if }}
-            {
-              'type': 'Feature',
-              'properties': {
-              'description': `
+      {{/ each }}
+      {{/if }}
+    {
+      'type': 'Feature',
+        'properties': {
+        'description': `
                 <h3>Cac... tuuuuus</h3>
                 <h5>Sah healthy brah</h5>
                 <hr>
@@ -159,63 +166,64 @@
                 <hr>
                 <a href="http://localhost:3007/pin/edit?lat=${that.coords.lat}&long=${that.coords.long}">Edit</a>
                 `,
-              'icon': 'music'
-              },
-              'geometry': {
-              'type': 'Point',
-              'coordinates': [135.821931323998,-26.01181789972918]
-              }
-            }
+          'icon': 'music'
+      },
+      'geometry': {
+        'type': 'Point',
+          'coordinates': [135.821931323998, -26.01181789972918]
+      }
+    }
           ]
         }
       })
 
-      map.addLayer({
-        'id': 'places',
-        'type': 'symbol',
-        'source': 'places',
-        'layout': {
-          'icon-image': '{icon}-15',
-          'icon-allow-overlap': true
-        }
-      });
+    map.addLayer({
+      'id': 'places',
+      'type': 'symbol',
+      'source': 'places',
+      'layout': {
+        'icon-image': '{icon}-15',
+        'icon-allow-overlap': true
+      }
+    });
 
-      map.on('click', 'places', function (e) {
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = e.features[0].properties.description;
-        
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    map.on('click', 'places', function (e) {
+      var coordinates = e.features[0].geometry.coordinates.slice();
+      var description = e.features[0].properties.description;
+
+      // Ensure that if the map is zoomed out such that multiple
+      // copies of the feature are visible, the popup appears
+      // over the copy being pointed to.
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
         coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-        
-        popup.remove()
+      }
 
-        new mapboxgl.Popup()
+      popup.remove()
+
+      new mapboxgl.Popup()
         .setLngLat(coordinates)
         .setHTML(description)
         .addTo(map);
 
-        setTimeout(() => {
-          popup.remove()
-        },500)
-      });
-        
-        // Change the cursor to a pointer when the mouse is over the places layer.
-      map.on('mouseenter', 'places', function () {
-        map.getCanvas().style.cursor = 'pointer';
-      });
-        
-        // Change it back to a pointer when it leaves.
-      map.on('mouseleave', 'places', function () {
-        map.getCanvas().style.cursor = '';
-      });
+      setTimeout(() => {
+        popup.remove()
+      }, 500)
+    });
+
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.on('mouseenter', 'places', function () {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'places', function () {
+      map.getCanvas().style.cursor = '';
+    });
 
     })
 
   </script>
 
 </body>
+
 </html>
