@@ -2,9 +2,11 @@ const express = require('express');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo')(expressSession);
 const mongoose = require('mongoose');
-const Handlebars = require('handlebars')
+const Handlebars = require('handlebars');
 const expressHandlebars = require('express-handlebars');
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const {
+  allowInsecurePrototypeAccess,
+} = require('@handlebars/allow-prototype-access');
 const passport = require('passport');
 
 const userRouter = require('./../routes/users_routes');
@@ -12,6 +14,7 @@ const pageRouter = require('./../routes/pages_routes');
 const authRouter = require('./../routes/auth_routes');
 
 const app = express();
+
 app.use(
   expressSession({
     secret: 'keyboard cat',
@@ -50,9 +53,17 @@ mongoose.connect(
   }
 );
 
-app.engine('handlebars', expressHandlebars({
-  handlebars: allowInsecurePrototypeAccess(Handlebars)
-}));
+app.get('*', function (req, res, next) {
+  res.locals.user = req.user || null;
+  next();
+});
+
+app.engine(
+  'handlebars',
+  expressHandlebars({
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+  })
+);
 app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 
