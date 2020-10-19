@@ -20,8 +20,8 @@ const canLogin = (user, password) => {
   }
 };
 
-const verifyCallback = (email, password, done) => {
-  UserModel.findOne({ email })
+const verifyCallback = (username, password, done) => {
+  UserModel.findOne({ username })
     .then((user) => {
       if (canLogin(user, password)) {
         return done(null, user);
@@ -32,6 +32,4 @@ const verifyCallback = (email, password, done) => {
     .catch(done);
 };
 
-const fields = { usernameField: 'email' };
-
-passport.use(new LocalStrategy(fields, verifyCallback));
+passport.use(new LocalStrategy(verifyCallback));

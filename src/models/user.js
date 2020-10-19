@@ -10,10 +10,10 @@ const User = new Schema({
     type: String,
     required: true,
   },
-  // username: {
-  //   type: String,
-  //   required: true,
-  // },
+  username: {
+    type: String,
+    required: true,
+  },
 });
 
 User.plugin(require('mongoose-bcrypt'));

@@ -17,9 +17,9 @@ function registerCreate(req, res, next) {
     });
   };
 
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  UserModel.create({ email, password }).then(newUserHandler);
+  UserModel.create({ username, email, password }).then(newUserHandler);
 }
 
 function logout(req, res) {

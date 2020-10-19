@@ -30,7 +30,7 @@ const PinSchema = new Schema({
     required: true,
   },
   user: {
-    type: Schema.Types.ObjectId, // if you use string instead you will get user id but cannot get the functionality like story.user.firstName
+    type: Schema.Types.ObjectId,
     ref: 'user',
   },
 });

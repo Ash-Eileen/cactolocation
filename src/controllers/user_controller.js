@@ -1,7 +1,7 @@
 function dashboard(req, res) {
   // res.send("Welcome to your dashboard!");
-  const email = req.user.email;
-  res.render('dashboard', { email });
+  const username = req.user.username;
+  res.render('dashboard', { username });
 }
 
 module.exports = { dashboard };

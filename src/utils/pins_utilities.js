@@ -10,10 +10,22 @@ const getPinById = function (req) {
 
 const addPin = function (req) {
   let date = Date.now();
-  req.body.create_date = date;
-  req.body.modified_date = date;
 
-  return new Pin(req.body);
+  let pin = {
+    coords: [
+      {
+        long: req.body.long,
+        lat: req.body.lat,
+      },
+    ],
+    health: req.body.heath,
+    type: req.body.type,
+    description: req.body.description,
+    create_date: date,
+    modified_date: date,
+    user: req.user.id,
+  };
+  return new Pin(pin);
 };
 
 const deletePin = function (req) {
