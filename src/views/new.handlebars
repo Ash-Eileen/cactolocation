@@ -5,13 +5,13 @@
     <div class="">
       <div class="">
         <label for="type">Name/Type</label>
-        <input type="text" name="type" value="">
+        <input type="text" name="type" value="" required>
       </div>
     </div>
     <div>
       <div>
         <label>Plant Health</label><br>
-        <input type="radio" name="health" id="healthy" value="healthy">
+        <input type="radio" name="health" id="healthy" value="healthy" required>
         <label for="healthy">Healthy</label><br>
         <input type="radio" name="health" id="careful" value="clip carefully">
         <label for="careful">Clip carefully</label><br>
@@ -22,7 +22,7 @@
     <div class="">
       <div class="">
         <label for="description">Description</label>
-        <textarea name="description"></textarea>
+        <textarea name="description" required></textarea>
       </div>
     </div>
     <input type="hidden" name="lat" value={{latLong.lat}}>

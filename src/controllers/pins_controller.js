@@ -26,7 +26,7 @@ const getPin = function (req, res) {
       res.status(404);
       return res.send(`This pin doesn't exist :o`);
     }
-    res.send(pin);
+    res.render("edit", {pin});
   });
 };
 
@@ -38,8 +38,7 @@ const createPin = function (req, res) {
         error: err.message,
       });
     }
-    res.status(201);
-    res.send(pin);
+    res.redirect("/")
   });
 };
 
@@ -51,7 +50,7 @@ const removePin = function (req, res) {
         error: err.message,
       });
     }
-    res.status(204);
+    res.redirect("/")
   });
 };
 
@@ -63,8 +62,7 @@ const changePin = function (req, res) {
         error: err.message,
       });
     }
-    res.status(200);
-    res.send(pin);
+    res.redirect('/')  
   });
 };
 
