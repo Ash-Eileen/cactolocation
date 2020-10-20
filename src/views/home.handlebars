@@ -69,7 +69,30 @@
           </button>
         </div>
         <div class="modal-body">
-          WRITE ABOUT THE APP HERE OK
+          <p>CaCuLocation was made by <a href="https://www.linkedin.com/in/ash-eileen/">Ashley Smith</a> & <a href="https://www.linkedin.com/in/nickducker/">Nick Ducker</a> in under 3 days for a cross campus Coder Academy hackathon challenge.</p>
+
+          <p>CacuLocation allows users to easily create, edit and share locations where it is possible to take succulent cuttings.
+          The application was built with Express, Mongo, Bootstrap & Mapbox.</p>
+
+          <p>Current features:</p>
+          <ul>
+            <li>The app populates the map dynamically using data pulled from a remote mongoDB database</li>
+            <li>Users can add, edit and delete their own pins</li>
+            <li>Users can geolocate themselves</li>
+            <li>App geocodes coordinates into objects and can also find addresses</li>
+            <li>App can geolocate with appropriate permissions</li>
+            <li>App will ensure the correct user is logged in before changing existing data</li>
+            <li>User page that collates all pins belonging to a particular user.</li>
+          </ul> 
+
+          <p>Future ideas include:</p>
+          <ul>
+            <li>Ability to add images to each pin</li>
+            <li>Each pin having its own page</li>
+            <li>Allowing users to leave comments on pins</li>
+          </ul> 
+          
+          <p>You can find the github repo >> <a href="https://github.com/DriftingDev/cactolocation/">here</a> <<</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -193,50 +216,60 @@
       }
     })
 
-    map.addLayer({
-      'id': 'places',
-      'type': 'symbol',
-      'source': 'places',
-      'layout': {
-        'icon-image': '{icon}-15',
-        'icon-allow-overlap': true
-      }
-    });
+      map.addLayer({
+        'id': 'places',
+        'type': 'symbol',
+        'source': 'places',
+        'layout': {
+          'icon-image': '{icon}-15',
+          'icon-allow-overlap': true
+        }
+      });
 
-    map.on('click', 'places', function (e) {
-      var coordinates = e.features[0].geometry.coordinates.slice();
-      var description = e.features[0].properties.description;
+      map.on('click', 'places', function (e) {
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        var description = e.features[0].properties.description;
 
-      // Ensure that if the map is zoomed out such that multiple
-      // copies of the feature are visible, the popup appears
-      // over the copy being pointed to.
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
 
-      popup.remove()
-
-      new mapboxgl.Popup()
-        .setLngLat(coordinates)
-        .setHTML(description)
-        .addTo(map);
-
-      setTimeout(() => {
         popup.remove()
-      }, 500)
-    });
 
-    // Change the cursor to a pointer when the mouse is over the places layer.
-    map.on('mouseenter', 'places', function () {
-      map.getCanvas().style.cursor = 'pointer';
-    });
+        new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map);
 
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'places', function () {
-      map.getCanvas().style.cursor = '';
-    });
+        setTimeout(() => {
+          popup.remove()
+        }, 500)
+      });
+
+      // Change the cursor to a pointer when the mouse is over the places layer.
+      map.on('mouseenter', 'places', function () {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+
+      // Change it back to a pointer when it leaves.
+      map.on('mouseleave', 'places', function () {
+        map.getCanvas().style.cursor = '';
+      });
 
     })
+
+    // Add geolocate control to the map.
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+      })
+    );
 
   </script>
 
