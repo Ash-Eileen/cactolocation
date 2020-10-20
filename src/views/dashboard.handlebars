@@ -1,14 +1,27 @@
-<h1>Welcome {{ user.username }}</h1>
-
-{{#if pins }}
-{{#each pins}}
-<h3>{{ this.type }}</h3>
-<h6>{{ this.health }}</h6>
-<p>{{ this.description }}</p>
-<a href="/pin/{{this.id}}">Edit</a>
-{{/each}}
-{{/if}}
-
-<div>
-  <a href=" /user/logout">Logout</a>
+<div class="row h-100 justify-content-center m-0">
+  <div class="col-md-10 col-sm-11 my-auto drop1 p-3">
+    <h1>Welcome {{ user.username }}</h1>
+    {{#if pins}}
+    <strong>Your pins</strong>
+    <hr>
+    <div class="card-columns">
+      {{#each pins}}
+      <div class="card text-dark">
+        <div class="card-body">
+          <h5 class="card-title">{{this.type}}</h5>
+          <em>{{ this.address }}</em>
+          <hr>
+          <strong>{{ this.health }}</strong>
+          <p class="card-text">{{ this.description }}</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <hr>
+          <a href="/pin/{{this.id}}" class="btn btn-sm btn-primary">Edit</a>        
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <strong>You have no pins yet...</strong>
+    {{/if}}
+  </div>
 </div>

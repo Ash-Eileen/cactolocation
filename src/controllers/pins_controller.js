@@ -25,7 +25,11 @@ const getPin = function (req, res) {
       res.status(404);
       return res.redirect('404');
     }
-    res.render('edit', { pin });
+    if (req.user.id == pin.user) {
+      res.render("edit", {pin});
+    } else {
+      res.redirect('/');
+    }
   });
 };
 
@@ -42,15 +46,25 @@ const createPin = function (req, res) {
 };
 
 const removePin = function (req, res) {
-  deletePin(req.params.id).exec((err) => {
+  getPinById(req).exec((err, pin) => {
     if (err) {
-      res.status(500);
-      return res.json({
-        error: err.message,
-      });
+      res.status(404);
+      return res.send(`This pin doesn't exist :o`);
     }
-    res.redirect('/');
-  });
+    if (req.user.id == pin.user) {
+      deletePin(req).exec((err) => {
+        if (err) {
+          res.status(500);
+          return res.json({
+            error: err.message,
+          });
+        }
+        res.redirect("/")
+      });
+    } else {  
+      res.redirect("/")
+    }
+  })
 };
 
 const changePin = function (req, res) {

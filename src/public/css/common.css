@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  height: 90vh;
   background-image: url("../img/cactusbackground.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -17,5 +18,11 @@ body {
 .linker {
   text-decoration: none;
   color: white;
+}
+
+.drop1 {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 25px;
 }
 /*# sourceMappingURL=common.css.map */

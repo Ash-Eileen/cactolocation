@@ -27,7 +27,7 @@ const addPin = function (req) {
 };
 
 const deletePin = function (req) {
-  return Pin.findByIdAndRemove(req);
+  return Pin.findByIdAndRemove(req.params.id);
 };
 
 const updatePin = function (req) {
