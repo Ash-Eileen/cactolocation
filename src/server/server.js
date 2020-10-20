@@ -8,6 +8,7 @@ const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access');
 const passport = require('passport');
+require('dotenv').config();
 
 const userRouter = require('./../routes/users_routes');
 const pageRouter = require('./../routes/pages_routes');
@@ -36,7 +37,8 @@ require('../middleware/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-const dbConn = 'mongodb://127.0.0.1:27017/caculocation_db';
+const dbConn = process.env.MONGODB_URI;
+// || 'mongodb://localhost/caculocation_db';
 mongoose.connect(
   dbConn,
   {
@@ -71,7 +73,7 @@ app.use('/', pageRouter);
 app.use('/dashboard', userRouter);
 app.use('/user', authRouter);
 
-const port = process.env.port || 3007;
+const port = process.env.PORT || 3007;
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
