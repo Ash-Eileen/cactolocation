@@ -26,7 +26,9 @@ const verifyCallback = (username, password, done) => {
       if (canLogin(user, password)) {
         return done(null, user);
       } else {
-        return done(null, false);
+        return done(null, false, {
+          message: 'Username or password incorrect.',
+        });
       }
     })
     .catch(done);

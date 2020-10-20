@@ -36,6 +36,7 @@ function loginCreate(req, res, next) {
   const loginFunc = passport.authenticate('local', {
     successRedirect: '/dashboard',
     failureRedirect: '/user/login',
+    failureFlash: true,
   });
   loginFunc(req, res, next);
 }

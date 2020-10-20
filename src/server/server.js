@@ -11,12 +11,15 @@ const passport = require('passport');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
+const flash = require('connect-flash');
 
 const userRouter = require('./../routes/users_routes');
 const pageRouter = require('./../routes/pages_routes');
 const authRouter = require('./../routes/auth_routes');
 
 const app = express();
+
+app.use(flash());
 
 app.use(
   expressSession({
@@ -40,6 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const dbConn = process.env.MONGODB_URI || 'mongodb://localhost/caculocation_db';
+
 mongoose.connect(
   dbConn,
   {
@@ -73,6 +77,10 @@ app.use(express.static('public'));
 app.use('/', pageRouter);
 app.use('/dashboard', userRouter);
 app.use('/user', authRouter);
+
+app.use(function (req, res) {
+  res.status(404).render('404');
+});
 
 const port = process.env.PORT || 3007;
 

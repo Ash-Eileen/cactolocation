@@ -8,7 +8,8 @@ const {
   changePin,
 } = require('../controllers/pins_controller');
 
-const { 
+const {
+  
   authorise 
 } = require('../middleware/authorisation_middleware');
 

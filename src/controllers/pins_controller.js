@@ -15,7 +15,6 @@ const getPins = function (req, res) {
         error: err.message,
       });
     }
-
     res.render('home', { pins, layout: false });
   });
 };
@@ -24,7 +23,7 @@ const getPin = function (req, res) {
   getPinById(req).exec((err, pin) => {
     if (err) {
       res.status(404);
-      return res.send(`This pin doesn't exist :o`);
+      return res.redirect('404');
     }
     if (req.user.id == pin.user) {
       res.render("edit", {pin});
@@ -42,7 +41,7 @@ const createPin = function (req, res) {
         error: err.message,
       });
     }
-    res.redirect("/")
+    res.redirect('/');
   });
 };
 
@@ -76,7 +75,7 @@ const changePin = function (req, res) {
         error: err.message,
       });
     }
-    res.redirect('/')  
+    res.redirect('/');
   });
 };
 
