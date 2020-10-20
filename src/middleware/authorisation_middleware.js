@@ -1,5 +1,4 @@
 function authRedirect(req, res, next) {
-  // TODO what have I missed here?
   if (req.user) {
     return res.redirect('/dashboard');
   } else {
