@@ -11,12 +11,15 @@ const passport = require('passport');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
+const flash = require('connect-flash');
 
 const userRouter = require('./../routes/users_routes');
 const pageRouter = require('./../routes/pages_routes');
 const authRouter = require('./../routes/auth_routes');
 
 const app = express();
+
+app.use(flash());
 
 app.use(
   expressSession({
