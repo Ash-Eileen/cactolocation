@@ -8,7 +8,9 @@ const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access');
 const passport = require('passport');
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 const userRouter = require('./../routes/users_routes');
 const pageRouter = require('./../routes/pages_routes');
