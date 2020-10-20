@@ -36,13 +36,16 @@
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
   <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-      <img src="/img/cacboi.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-      CaCuLocation
+    <div>
+      <a class="navbar-brand" href="/">
+        <img src="/img/cacboi.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        CaCuLocation
       {{#if user}}
-      // Hi, {{ user.username }}
+        <a href="/dashboard" class="nav-item linker">// Hi, {{ user.username }}</a>
       {{/if}}
     </a>
+    </div>
+    
     <div>
       {{#if user}}
       <a class="btn btn-primary" href="/user/logout">Log Out</a>
