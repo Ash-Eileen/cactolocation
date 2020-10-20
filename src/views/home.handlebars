@@ -117,7 +117,7 @@
         <strong>${address}</strong>
         <hr>
         {{#if user}}
-          <a href="http://localhost:3007/new?lat=${coords.lat}&long=${coords.lng}&address=${address}">Add Pin</a>
+          <a href="/new?lat=${coords.lat}&long=${coords.lng}&address=${address}">Add Pin</a>
         {{else}}
           <a href="/user/login">Please Log In To Add a Pin</a>
         {{/if}}
@@ -139,9 +139,9 @@
           'type': 'FeatureCollection',
           'features': [
             {{#if pins }}
-              {{#if user}}
+              {{#if user }}
               {{#each pins }}
-                {
+      {
         'type': 'Feature',
         'properties': {
           'description': `
@@ -152,7 +152,7 @@
                       <strong>{{ this.health }}</strong>
                       <p>{{ this.description }}</p>
                       <hr>
-                        <a href="http://localhost:3007/pin/{{this.id}}">Edit</a>
+                        <a href="/pin/{{this.id}}">Edit</a>
                       `,
           'icon': 'park'
         },
@@ -161,10 +161,10 @@
           'coordinates': [{{ this.long }}, {{ this.lat }}]
                   }
                 },
-      {{/ each }}
+      {{/each }}
       {{else}}
-                    {{#each pins }}
-                {
+      {{#each pins }}
+      {
         'type': 'Feature',
         'properties': {
           'description': `
@@ -184,14 +184,14 @@
           'coordinates': [{{ this.long }}, {{ this.lat }}]
                   }
                 },
-  
-      {{/ each }}
+
+      {{/each }}
       {{/if}}
-      {{/if }}
-    { }
+    {{/if }}
+        { }
           ]
-        }
-      })
+      }
+    })
 
     map.addLayer({
       'id': 'places',
