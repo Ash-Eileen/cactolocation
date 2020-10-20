@@ -40,12 +40,12 @@
       <a class="navbar-brand" href="/">
         <img src="/img/cacboi.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
         CaCuLocation
-      {{#if user}}
+        {{#if user}}
         <a href="/dashboard" class="nav-item linker">// Hi, {{ user.username }}</a>
-      {{/if}}
-    </a>
+        {{/if}}
+      </a>
     </div>
-    
+
     <div>
       {{#if user}}
       <a class="btn btn-primary" href="/user/logout">Log Out</a>
@@ -100,7 +100,6 @@
       })
     );
 
-
     //Popup of location on click
     let popup = new mapboxgl.Popup()
 
@@ -117,7 +116,11 @@
         .setHTML(`
         <strong>${address}</strong>
         <hr>
-        <a href="http://localhost:3007/new?lat=${coords.lat}&long=${coords.lng}&address=${address}">Add Pin</a>
+        {{#if user}}
+          <a href="http://localhost:3007/new?lat=${coords.lat}&long=${coords.lng}&address=${address}">Add Pin</a>
+        {{else}}
+          <a href="/user/login">Please Log In To Add a Pin</a>
+        {{/if}}
         `)
         .addTo(map)
     })
@@ -136,6 +139,7 @@
           'type': 'FeatureCollection',
           'features': [
             {{#if pins }}
+              {{#if user}}
               {{#each pins }}
                 {
         'type': 'Feature',
@@ -148,7 +152,7 @@
                       <strong>{{ this.health }}</strong>
                       <p>{{ this.description }}</p>
                       <hr>
-                      <a href="http://localhost:3007/pin/{{this.id}}">Edit</a>
+                        <a href="http://localhost:3007/pin/{{this.id}}">Edit</a>
                       `,
           'icon': 'park'
         },
@@ -158,8 +162,33 @@
                   }
                 },
       {{/ each }}
+      {{else}}
+                    {{#each pins }}
+                {
+        'type': 'Feature',
+        'properties': {
+          'description': `
+                      <h3>{{ this.type }}</h3>
+                      <em>{{ this.address }}</em><br>
+                      <strong>{{ this.user.username }}</strong>
+                      <hr>
+                      <strong>{{ this.health }}</strong>
+                      <p>{{ this.description }}</p>
+                      <hr>
+                    <a href="/user/login">Please Log In To Edit a Pin</a>
+                      `,
+          'icon': 'park'
+        },
+        'geometry': {
+          'type': 'Point',
+          'coordinates': [{{ this.long }}, {{ this.lat }}]
+                  }
+                },
+  
+      {{/ each }}
+      {{/if}}
       {{/if }}
-      {}
+    { }
           ]
         }
       })
