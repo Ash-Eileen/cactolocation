@@ -36,13 +36,16 @@
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
 
   <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-      <img src="/img/cacboi.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-      CaCuLocation
+    <div>
+      <a class="navbar-brand" href="/">
+        <img src="/img/cacboi.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        CaCuLocation
       {{#if user}}
-      // Hi, {{ user.username }}
+        <a href="/dashboard" class="nav-item linker">// Hi, {{ user.username }}</a>
       {{/if}}
     </a>
+    </div>
+    
     <div>
       {{#if user}}
       <a class="btn btn-primary" href="/user/logout">Log Out</a>
@@ -105,16 +108,16 @@
       console.log(e)
       var coords = e.lngLat
 
-      let address = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${token}`)
+      let raw = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${token}`)
         .then(resp => resp.json())
-      console.log(address.features[0].place_name)
+      let address = raw.features[0].place_name
 
       popup
         .setLngLat(coords)
         .setHTML(`
-        <strong>${address.features[0].place_name}</strong>
+        <strong>${address}</strong>
         <hr>
-        <a href="http://localhost:3007/new?lat=${coords.lat}&long=${coords.lng}">Add Pin</a>
+        <a href="http://localhost:3007/new?lat=${coords.lat}&long=${coords.lng}&address=${address}">Add Pin</a>
         `)
         .addTo(map)
     })
@@ -139,8 +142,10 @@
         'properties': {
           'description': `
                       <h3>{{ this.type }}</h3>
-                      <h6>{{ this.health }}</h6>
+                      <em>{{ this.address }}</em><br>
+                      <strong>{{ this.user.username }}</strong>
                       <hr>
+                      <strong>{{ this.health }}</strong>
                       <p>{{ this.description }}</p>
                       <hr>
                       <a href="http://localhost:3007/pin/{{this.id}}">Edit</a>
@@ -154,24 +159,7 @@
                 },
       {{/ each }}
       {{/if }}
-    {
-      'type': 'Feature',
-        'properties': {
-        'description': `
-                <h3>Cac... tuuuuus</h3>
-                <h5>Sah healthy brah</h5>
-                <hr>
-                <p>WEE I'm A DESCRIPTION</p>
-                <hr>
-                <a href="http://localhost:3007/pin/edit?lat=${that.coords.lat}&long=${that.coords.long}">Edit</a>
-                `,
-          'icon': 'music'
-      },
-      'geometry': {
-        'type': 'Point',
-          'coordinates': [135.821931323998, -26.01181789972918]
-      }
-    }
+      {}
           ]
         }
       })

@@ -19,7 +19,8 @@ router.get('/new', authorise, (req, res) => {
     lat: req.query.lat,
     long: req.query.long
   }
-  res.render('new',{latLong});
+  let address = req.query.address
+  res.render('new',{latLong, address});
 });
 
 router.get('/pin/:id', authorise, getPin);
