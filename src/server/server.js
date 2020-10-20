@@ -37,8 +37,7 @@ require('../middleware/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-const dbConn = process.env.MONGODB_URI;
-// || 'mongodb://localhost/caculocation_db';
+const dbConn = process.env.MONGODB_URI || 'mongodb://localhost/caculocation_db';
 mongoose.connect(
   dbConn,
   {
