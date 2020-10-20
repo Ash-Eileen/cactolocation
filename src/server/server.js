@@ -75,6 +75,10 @@ app.use('/', pageRouter);
 app.use('/dashboard', userRouter);
 app.use('/user', authRouter);
 
+app.use(function (req, res) {
+  res.status(404).render('404');
+});
+
 const port = process.env.PORT || 3007;
 
 app.listen(port, () => {
