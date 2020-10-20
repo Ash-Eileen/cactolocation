@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const PinSchema = new Schema({
   
-    
+  address: {
+    type: String,
+    required: true
+  },    
   long: {
     type: Number,
     required: true
